@@ -7,7 +7,7 @@ import { Model } from 'mongoose';
 @Injectable()
 export class PlayersService {
 
-    constructor(@InjectModel('Player')private readonly Player:Model<Players>){}
+    constructor(@InjectModel('Player')private readonly player:Model<Players>){}
 
     private readonly logger = new Logger(PlayersService.name);
 
@@ -15,7 +15,7 @@ export class PlayersService {
 
         const {email} = createplayer;
 
-        const playerFound = await this.Player.findOne({email}).exec();
+        const playerFound = await this.player.findOne({email}).exec();
 
         if(playerFound){
             throw new BadRequestException(`This email already exists`);
@@ -28,14 +28,14 @@ export class PlayersService {
 
         const {email} = createplayer;
 
-        const playerFound = await this.Player.findById(_id).exec();
+        const playerFound = await this.player.findById(_id).exec();
 
         if(!playerFound){
             throw new NotFoundException(`Player not found.`); 
         }
 
         if(email!==playerFound.email){
-            const emailExists = await this.Player.findOne({email}).exec();
+            const emailExists = await this.player.findOne({email}).exec();
 
             if(emailExists){
                 throw new BadRequestException(`This email already exists`);
@@ -46,11 +46,11 @@ export class PlayersService {
     }
 
     async findAllPlayers(page):Promise<Players[]>{
-        return await this.Player.find().skip((page-1)*5).limit(5).exec();
+        return await this.player.find().skip((page-1)*5).limit(5).exec();
     }
 
     async findPlayerById(_id:string):Promise<Players>{
-        const playerFound = await this.Player.findById(_id).exec();
+        const playerFound = await this.player.findById(_id).exec();
         if(!playerFound){
             throw new NotFoundException(`Player with id:${_id} not found.`); 
         }
@@ -58,16 +58,16 @@ export class PlayersService {
     }
 
     async deletePlayer(_id:string):Promise<any>{
-      return await this.Player.findByIdAndDelete(_id).exec();
+      return await this.player.findByIdAndDelete(_id).exec();
     }
 
     private async create(createplayer:CreatePlayer):Promise<Players>{
-        const player = new this.Player(createplayer);
+        const player = new this.player(createplayer);
         return await player.save();
     }
 
     private async update(_id,player:CreatePlayer):Promise<Players>{
-        return await this.Player.findByIdAndUpdate(_id,{$set:player}).exec();
+        return await this.player.findByIdAndUpdate(_id,{$set:player}).exec();
     }
 
 }

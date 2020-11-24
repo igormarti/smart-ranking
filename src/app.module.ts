@@ -3,6 +3,7 @@ import {MongooseModule} from '@nestjs/mongoose'
 import { ConfigModule,ConfigService } from 'nestjs-dotenv';
 
 import { PlayersModule } from './players/players.module';
+import { CategoriesModule } from './categories/categories.module';
 
 
 const configService = new ConfigService();
@@ -17,7 +18,8 @@ const configService = new ConfigService();
       useCreateIndex:true,
       useFindAndModify:false
     }),
-    PlayersModule
+    PlayersModule,
+    CategoriesModule
   ],
   controllers: [],
   providers: [],
