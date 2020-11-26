@@ -1,0 +1,27 @@
+{
+    "sqltools.connections": [
+        {
+            "mysqlOptions": {
+                "authProtocol": "default"
+            },
+            "previewLimit": 50,
+            "server": "189.16.229.125",
+            "port": 9092,
+            "driver": "MySQL",
+            "name": "mysql",
+            "database": "pep",
+            "username": "root",
+            "password": "senha@123-smi"
+        },
+        {
+            "previewLimit": 50,
+            "server": "189.16.229.125",
+            "port": 9090,
+            "driver": "PostgreSQL",
+            "name": "pgsql",
+            "username": "business",
+            "database": "novobusiness",
+            "password": "123456"
+        }
+    ]
+}
